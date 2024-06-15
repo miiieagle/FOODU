@@ -56,21 +56,8 @@ This project is a server-side application for an eatery, built using Node.js. Th
     JWT_SECRET=your_jwt_secret_key
     MONGODB_URI=mongodb://localhost:27017/eatry
     ```
-
-4. Start the server:
-    ```sh
-    node app.js
-    ```
-
-### API Endpoints
-
-Start the MongoDB server:
-
-    ```sh
-    mongod
-    ```
-
-5. Start the Node.js server:
+    
+4. Start the Node.js server:
 
     ```sh
     npm run dev
