@@ -2,14 +2,14 @@
 
 ## Project Description
 
-This project is a server-side application for an eatery, built using Node.js. The application focuses on user authentication and provides endpoints for retrieving the eatery's menu and processing orders.
+This project is a server-side application for an eatery, built using Node.js. The application focuses on user authentication and provides endpoints for retrieving the eatery's menu, posting new menu items, and processing orders.
 
 ## Features
 
-- **User Authentication**: Register and login functionality using email and password.
+- **User Authentication**: Register, login, and OTP verification functionality.
 - **Menu Retrieval**: Endpoint to get the eatery's menu including dish names, descriptions, and prices.
+- **Menu Management**: Endpoint to post new menu items.
 - **Order Processing**: Endpoint to place orders by accepting dish IDs and quantities, and returning a confirmation message.
-- **OTP Verification**: Send OTP to email for user verification.
 - **API Testing and Documentation**: API endpoints tested and documented using Postman.
 
 ## Technologies Used
@@ -46,30 +46,20 @@ This project is a server-side application for an eatery, built using Node.js. Th
     npm install
     ```
 
-3. Create a `.env` file in the root directory and add the following environment variables:
+3. Create a `.env.dev` file in the root directory and add the following environment variables:
     ```plaintext
-    # MongoDB connection string
-    MONGO_URI=mongodb://localhost:27017/eatry
-
-    # JWT Secret key
-    JWT_SECRET=your_jwt_secret_key
-
-    # Server port
     PORT=5000
-
-    # Email configuration for nodemailer
-    EMAIL_HOST=smtp.example.com
-    EMAIL_PORT=587
-    EMAIL_USER=your_email@example.com
-    EMAIL_PASS=your_email_password
-
-    # API Version
-    API_VERSION=v1
+    VERSION=v1
+    PASSMAILER=your_passmailer
+    USER=your_email_user
+    SERVICE=your_email_service
+    JWT_SECRET=your_jwt_secret_key
+    MONGODB_URI=mongodb://localhost:27017/eatry
     ```
 
 4. Start the server:
     ```sh
-    npm start
+    node app.js
     ```
 
 ### API Endpoints
@@ -77,15 +67,15 @@ This project is a server-side application for an eatery, built using Node.js. Th
 #### Authentication
 
 - **Register**: `POST /api/v1/auth/register`
-    - Request body: `{ "name": "John Doe", "email": "john@example.com", "password": "password123" }`
+    - Request body: `{ "name": "Mark Johnson", "email": "mark@example.com", "password": "password123" }`
     - Response: `{ "message": "User registered, OTP sent to email" }`
 
 - **Verify OTP**: `POST /api/v1/auth/verify-otp`
-    - Request body: `{ "email": "john@example.com", "otp": "123456" }`
+    - Request body: `{ "email": "mark@example.com", "otp": "123456" }`
     - Response: `{ "token": "jwt_token" }`
 
 - **Login**: `POST /api/v1/auth/login`
-    - Request body: `{ "email": "john@example.com", "password": "password123" }`
+    - Request body: `{ "email": "mark@example.com", "password": "password123" }`
     - Response: `{ "token": "jwt_token" }`
 
 #### Menu
@@ -93,10 +83,17 @@ This project is a server-side application for an eatery, built using Node.js. Th
 - **Get Menu**: `GET /api/v1/menu`
     - Response: `[{ "name": "Pizza", "description": "Delicious cheese pizza", "price": 9.99 }, ...]`
 
+- **Post Menu**: `POST /api/v1/menu`
+    - Headers: 
+        - `Authorization: Bearer <token>`
+    - Request body: `{ "name": "Pizza", "description": "Delicious cheese pizza", "price": 9.99 }`
+    - Response: `{ "_id": "60c72b1f4f1a2c001c9d6a2b", "name": "Pizza", "description": "Delicious cheese pizza", "price": 9.99, "__v": 0 }`
+
 #### Orders
 
 - **Place Order**: `POST /api/v1/orders`
-    - Headers: `{ "Authorization": "Bearer jwt_token" }`
+    - Headers: 
+        - `Authorization: Bearer <token>`
     - Request body: `{ "items": [{ "dishId": "60f8a6b8c2a1e4b3d8f1b58c", "quantity": 2 }, ...] }`
     - Response: `{ "message": "Order placed successfully", "order": { "userId": "60f8a6b8c2a1e4b3d8f1b58c", "items": [{ "dishId": "60f8a6b8c2a1e4b3d8f1b58c", "quantity": 2 }], "totalPrice": 19.98, "createdAt": "2021-07-21T14:42:34.951Z" } }`
 
