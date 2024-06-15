@@ -37,7 +37,7 @@ This project is a server-side application for an eatery, built using Node.js. Th
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-username/eatry-server.git
+    git clone https://github.com/miiieagle/FOODU.git
     cd eatry-server
     ```
 
