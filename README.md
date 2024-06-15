@@ -1,63 +1,59 @@
-# Eatry Server-Side Application
+# FOODU
 
-## Project Description
-
-This project is a server-side application for an eatery, built using Node.js. The application focuses on user authentication and provides endpoints for retrieving the eatery's menu, posting new menu items, and processing orders.
+FOODU is a food ordering application where users can browse the menu, place orders, and receive OTP verification for account security. Admin users have the ability to manage the menu items.
 
 ## Features
 
-- **User Authentication**: Register, login, and OTP verification functionality.
-- **Menu Retrieval**: Endpoint to get the eatery's menu including dish names, descriptions, and prices.
-- **Menu Management**: Endpoint to post new menu items.
-- **Order Processing**: Endpoint to place orders by accepting dish IDs and quantities, and returning a confirmation message.
-- **API Testing and Documentation**: API endpoints tested and documented using Postman.
-
-## Technologies Used
-
-- Node.js
-- Express
-- MongoDB (Mongoose)
-- JSON Web Tokens (JWT)
-- Bcrypt
-- Nodemailer
-- dotenv
-- Joi
-- Cors
-- OTP Generator
-- Winston
+- User registration with OTP verification
+- User login with OTP
+- JWT-based authentication
+- Role-based access control (Admin and User roles)
+- Admin can manage menu items (add, update, delete)
+- Users can browse menu items and place orders
 
 ## Getting Started
 
+These instructions will help you set up and run the project on your local machine.
+
 ### Prerequisites
 
-- Node.js installed
-- MongoDB installed and running
+- Node.js (v14.x or later)
+- MongoDB (local or Atlas)
+- npm (v6.x or later)
 
 ### Installation
 
 1. Clone the repository:
+
     ```sh
-    git clone https://github.com/miiieagle/FOODU.git
-    cd eatry-server
+    git clone https://github.com/your-repository/foodu.git
+    cd foodu
     ```
 
 2. Install dependencies:
+
     ```sh
     npm install
     ```
 
 3. Create a `.env.dev` file in the root directory and add the following environment variables:
-    ```plaintext
+
+    ```env
     PORT=5000
-    VERSION=v1
-    PASSMAILER=your_passmailer
-    USER=your_email_user
-    SERVICE=your_email_service
-    JWT_SECRET=your_jwt_secret_key
+    JWT_SECRET=your_jwt_secret
     MONGODB_URI=mongodb://localhost:27017/eatry
+    EMAIL_USER=your_email@example.com
+    EMAIL_PASS=your_email_password
+    VERSION=v1
     ```
-    
-4. Start the Node.js server:
+
+4. Start the MongoDB server:
+
+    ```sh
+    mongod
+    ```
+
+5. Start the Node.js server:
 
     ```sh
     npm run dev
@@ -169,134 +165,6 @@ This project is a server-side application for an eatery, built using Node.js. Th
       }
       ```
 
-### Using Postman
-
-#### Register User
-
-1. Open Postman and create a new request.
-2. Set the request type to `POST`.
-3. Enter the URL: `http://localhost:5000/api/v1/auth/register`.
-4. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
-5. Enter the following JSON:
-    ```json
-    {
-      "name": "John Doe",
-      "email": "john@example.com",
-      "password": "password123"
-    }
-    ```
-6. Click `Send`.
-
-#### Verify OTP
-
-1. Open Postman and create a new request.
-2. Set the request type to `POST`.
-3. Enter the URL: `http://localhost:5000/api/v1/auth/verify-otp`.
-4. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
-5. Enter the following JSON:
-    ```json
-    {
-      "email": "john@example.com",
-      "otp": "123456"
-    }
-    ```
-6. Click `Send`.
-
-#### Login Request OTP
-
-1. Open Postman and create a new request.
-2. Set the request type to `POST`.
-3. Enter the URL: `http://localhost:5000/api/v1/auth/login-request-otp`.
-4. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
-5. Enter the following JSON:
-    ```json
-    {
-      "email": "john@example.com",
-      "password": "password123"
-    }
-    ```
-6. Click `Send`.
-
-#### Verify Login OTP
-
-1. Open Postman and create a new request.
-2. Set the request type to `POST`.
-3. Enter the URL: `http://localhost:5000/api/v1/auth/verify-login-otp`.
-4. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
-5. Enter the following JSON:
-    ```json
-    {
-      "email": "john@example.com",
-      "otp": "123456"
-    }
-    ```
-6. Click `Send`.
-
-#### Promote to Admin
-
-1. Open Postman and create a new request.
-2. Set the request type to `POST`.
-3. Enter the URL: `http://localhost:5000/api/v1/auth/promote-to-admin`.
-4. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
-5. Enter the following JSON:
-    ```json
-    {
-      "email": "john@example.com"
-    }
-    ```
-6. Click `Send`.
-
-#### Add Menu Item (Admin only)
-
-1. Open Postman and create a new request.
-2. Set the request type to `POST`.
-3. Enter the URL: `http://localhost:5000/api/v1/menu`.
-4. Go to the `Headers` tab.
-5. Add the following headers:
-    - `Authorization: Bearer <admin_jwt_token>`
-    - `Content-Type: application/json`
-6. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
-7. Enter the following JSON:
-    ```json
-    {
-      "name": "Pizza",
-      "description": "Delicious cheese pizza with fresh ingredients",
-      "price": 9.99
-    }
-    ```
-8. Click `Send`.
-
-#### Place Order
-
-1. Open Postman and create a new request.
-2. Set the request type to `POST`.
-3. Enter the URL: `http://localhost:5000/api/v1/orders`.
-4. Go to the `Headers` tab.
-5. Add the following headers:
-    - `Authorization: Bearer <user_jwt_token>`
-    - `Content-Type: application/json`
-6. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
-7. Enter the following JSON:
-    ```json
-    {
-      "items": [
-        {
-          "menuId": "666dcf11f1717d230d3c8868",
-          "quantity": 2
-        },
-        {
-          "menuId": "666dcfc3f1717d230d3c886b",
-          "quantity": 1
-        },
-        {
-          "menuId": "666dd170f1717d230d3c8871",
-          "quantity": 3
-        }
-      ]
-    }
-    ```
-8. Click `Send`.
-
 ## Project Structure
 
 ```plaintext
@@ -328,15 +196,3 @@ eatry-server/
 ├── .env.dev
 ├── app.js
 └── package.json
-
-### Running Tests
-
-- Use Postman to test the API endpoints.
-
-### License
-
-This project is licensed under the MIT License.
-
-### Acknowledgments
-
-- Special thanks to the creators of Node.js, Express, MongoDB, and all other libraries used in this project.
