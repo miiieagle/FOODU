@@ -11,6 +11,21 @@ FOODU is a food ordering application where users can browse the menu, place orde
 - Admin can manage menu items (add, update, delete)
 - Users can browse menu items and place orders
 
+## Technologies Used
+
+- Node.js
+- Express
+- MongoDB (Mongoose)
+- JSON Web Tokens (JWT)
+- Bcrypt
+- Nodemailer
+- dotenv
+- Joi
+- body-parser
+- OTP Generator
+- Winston
+- Cors
+
 ## Getting Started
 
 These instructions will help you set up and run the project on your local machine.
