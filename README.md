@@ -210,12 +210,12 @@ eatry-server/
 ├── .env.dev
 ├── app.js
 └── package.json
+``
 
-
-### License
+## License
 
 This project is licensed under the MIT License.
 
-### Acknowledgments
+## Acknowledgments
 
 - Special thanks to the creators of Node.js, Express, MongoDB, and all other libraries used in this project.
