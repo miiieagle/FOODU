@@ -41,8 +41,8 @@ These instructions will help you set up and run the project on your local machin
 1. Clone the repository:
 
     ```sh
-    git clone https://github.com/your-repository/foodu.git
-    cd foodu
+    git clone https://github.com/miiieagle/FOODU.git
+    cd FOODU
     ```
 
 2. Install dependencies:
@@ -56,19 +56,13 @@ These instructions will help you set up and run the project on your local machin
     ```env
     PORT=5000
     JWT_SECRET=your_jwt_secret
-    MONGODB_URI=mongodb://localhost:27017/eatry
+    MONGODB_URI=your_mongodb_url
     EMAIL_USER=your_email@example.com
     EMAIL_PASS=your_email_password
     VERSION=v1
     ```
 
-4. Start the MongoDB server:
-
-    ```sh
-    mongod
-    ```
-
-5. Start the Node.js server:
+4. Start the Node.js server:
 
     ```sh
     npm run dev
@@ -84,8 +78,8 @@ These instructions will help you set up and run the project on your local machin
     - Body:
       ```json
       {
-        "name": "John Doe",
-        "email": "john@example.com",
+        "name": "Mark Johnson",
+        "email": "mark@example.com",
         "password": "password123"
       }
       ```
@@ -96,7 +90,7 @@ These instructions will help you set up and run the project on your local machin
     - Body:
       ```json
       {
-        "email": "john@example.com",
+        "email": "mark@example.com",
         "otp": "123456"
       }
       ```
@@ -107,7 +101,7 @@ These instructions will help you set up and run the project on your local machin
     - Body:
       ```json
       {
-        "email": "john@example.com",
+        "email": "mark@example.com",
         "password": "password123"
       }
       ```
@@ -118,7 +112,7 @@ These instructions will help you set up and run the project on your local machin
     - Body:
       ```json
       {
-        "email": "john@example.com",
+        "email": "mark@example.com",
         "otp": "123456"
       }
       ```
@@ -129,7 +123,7 @@ These instructions will help you set up and run the project on your local machin
     - Body:
       ```json
       {
-        "email": "john@example.com"
+        "email": "mark@example.com"
       }
       ```
 
@@ -180,6 +174,11 @@ These instructions will help you set up and run the project on your local machin
       }
       ```
 
+
+### Running Tests
+
+- Use Postman to test the API endpoints.
+
 ## Project Structure
 
 ```plaintext
@@ -211,3 +210,12 @@ eatry-server/
 ├── .env.dev
 ├── app.js
 └── package.json
+
+
+### License
+
+This project is licensed under the MIT License.
+
+### Acknowledgments
+
+- Special thanks to the creators of Node.js, Express, MongoDB, and all other libraries used in this project.
