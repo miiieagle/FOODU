@@ -57,45 +57,283 @@ This project is a server-side application for an eatery, built using Node.js. Th
     MONGODB_URI=mongodb://localhost:27017/eatry
     ```
 
-4. Start the server:
+Start the MongoDB server:
+
     ```sh
-    node app.js
+    mongod
+    ```
+
+5. Start the Node.js server:
+
+    ```sh
+    npm run dev
     ```
 
 ### API Endpoints
 
-#### Authentication
+#### Auth Routes
 
-- **Register**: `POST /api/v1/auth/register`
-    - Request body: `{ "name": "Mark Johnson", "email": "mark@example.com", "password": "password123" }`
-    - Response: `{ "message": "User registered, OTP sent to email" }`
+- **Register User**
+    - URL: `/api/v1/auth/register`
+    - Method: `POST`
+    - Body:
+      ```json
+      {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "password": "password123"
+      }
+      ```
 
-- **Verify OTP**: `POST /api/v1/auth/verify-otp`
-    - Request body: `{ "email": "mark@example.com", "otp": "123456" }`
-    - Response: `{ "token": "jwt_token" }`
+- **Verify OTP**
+    - URL: `/api/v1/auth/verify-otp`
+    - Method: `POST`
+    - Body:
+      ```json
+      {
+        "email": "john@example.com",
+        "otp": "123456"
+      }
+      ```
 
-- **Login**: `POST /api/v1/auth/login`
-    - Request body: `{ "email": "mark@example.com", "password": "password123" }`
-    - Response: `{ "token": "jwt_token" }`
+- **Login Request OTP**
+    - URL: `/api/v1/auth/login-request-otp`
+    - Method: `POST`
+    - Body:
+      ```json
+      {
+        "email": "john@example.com",
+        "password": "password123"
+      }
+      ```
 
-#### Menu
+- **Verify Login OTP**
+    - URL: `/api/v1/auth/verify-login-otp`
+    - Method: `POST`
+    - Body:
+      ```json
+      {
+        "email": "john@example.com",
+        "otp": "123456"
+      }
+      ```
 
-- **Get Menu**: `GET /api/v1/menu`
-    - Response: `[{ "name": "Pizza", "description": "Delicious cheese pizza", "price": 9.99 }, ...]`
+- **Promote to Admin**
+    - URL: `/api/v1/auth/promote-to-admin`
+    - Method: `POST`
+    - Body:
+      ```json
+      {
+        "email": "john@example.com"
+      }
+      ```
 
-- **Post Menu**: `POST /api/v1/menu`
-    - Headers: 
-        - `Authorization: Bearer <token>`
-    - Request body: `{ "name": "Pizza", "description": "Delicious cheese pizza", "price": 9.99 }`
-    - Response: `{ "_id": "60c72b1f4f1a2c001c9d6a2b", "name": "Pizza", "description": "Delicious cheese pizza", "price": 9.99, "__v": 0 }`
+#### Menu Routes
 
-#### Orders
+- **Get Menu**
+    - URL: `/api/v1/menu`
+    - Method: `GET`
 
-- **Place Order**: `POST /api/v1/orders`
-    - Headers: 
-        - `Authorization: Bearer <token>`
-    - Request body: `{ "items": [{ "dishId": "60f8a6b8c2a1e4b3d8f1b58c", "quantity": 2 }, ...] }`
-    - Response: `{ "message": "Order placed successfully", "order": { "userId": "60f8a6b8c2a1e4b3d8f1b58c", "items": [{ "dishId": "60f8a6b8c2a1e4b3d8f1b58c", "quantity": 2 }], "totalPrice": 19.98, "createdAt": "2021-07-21T14:42:34.951Z" } }`
+- **Add Menu Item (Admin only)**
+    - URL: `/api/v1/menu`
+    - Method: `POST`
+    - Headers:
+      - `Authorization: Bearer <admin_jwt_token>`
+    - Body:
+      ```json
+      {
+        "name": "Pizza",
+        "description": "Delicious cheese pizza with fresh ingredients",
+        "price": 9.99
+      }
+      ```
+
+#### Order Routes
+
+- **Place Order**
+    - URL: `/api/v1/orders`
+    - Method: `POST`
+    - Headers:
+      - `Authorization: Bearer <user_jwt_token>`
+    - Body:
+      ```json
+      {
+        "items": [
+          {
+            "menuId": "666dcf11f1717d230d3c8868",
+            "quantity": 2
+          },
+          {
+            "menuId": "666dcfc3f1717d230d3c886b",
+            "quantity": 1
+          },
+          {
+            "menuId": "666dd170f1717d230d3c8871",
+            "quantity": 3
+          }
+        ]
+      }
+      ```
+
+### Using Postman
+
+#### Register User
+
+1. Open Postman and create a new request.
+2. Set the request type to `POST`.
+3. Enter the URL: `http://localhost:5000/api/v1/auth/register`.
+4. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
+5. Enter the following JSON:
+    ```json
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "password123"
+    }
+    ```
+6. Click `Send`.
+
+#### Verify OTP
+
+1. Open Postman and create a new request.
+2. Set the request type to `POST`.
+3. Enter the URL: `http://localhost:5000/api/v1/auth/verify-otp`.
+4. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
+5. Enter the following JSON:
+    ```json
+    {
+      "email": "john@example.com",
+      "otp": "123456"
+    }
+    ```
+6. Click `Send`.
+
+#### Login Request OTP
+
+1. Open Postman and create a new request.
+2. Set the request type to `POST`.
+3. Enter the URL: `http://localhost:5000/api/v1/auth/login-request-otp`.
+4. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
+5. Enter the following JSON:
+    ```json
+    {
+      "email": "john@example.com",
+      "password": "password123"
+    }
+    ```
+6. Click `Send`.
+
+#### Verify Login OTP
+
+1. Open Postman and create a new request.
+2. Set the request type to `POST`.
+3. Enter the URL: `http://localhost:5000/api/v1/auth/verify-login-otp`.
+4. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
+5. Enter the following JSON:
+    ```json
+    {
+      "email": "john@example.com",
+      "otp": "123456"
+    }
+    ```
+6. Click `Send`.
+
+#### Promote to Admin
+
+1. Open Postman and create a new request.
+2. Set the request type to `POST`.
+3. Enter the URL: `http://localhost:5000/api/v1/auth/promote-to-admin`.
+4. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
+5. Enter the following JSON:
+    ```json
+    {
+      "email": "john@example.com"
+    }
+    ```
+6. Click `Send`.
+
+#### Add Menu Item (Admin only)
+
+1. Open Postman and create a new request.
+2. Set the request type to `POST`.
+3. Enter the URL: `http://localhost:5000/api/v1/menu`.
+4. Go to the `Headers` tab.
+5. Add the following headers:
+    - `Authorization: Bearer <admin_jwt_token>`
+    - `Content-Type: application/json`
+6. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
+7. Enter the following JSON:
+    ```json
+    {
+      "name": "Pizza",
+      "description": "Delicious cheese pizza with fresh ingredients",
+      "price": 9.99
+    }
+    ```
+8. Click `Send`.
+
+#### Place Order
+
+1. Open Postman and create a new request.
+2. Set the request type to `POST`.
+3. Enter the URL: `http://localhost:5000/api/v1/orders`.
+4. Go to the `Headers` tab.
+5. Add the following headers:
+    - `Authorization: Bearer <user_jwt_token>`
+    - `Content-Type: application/json`
+6. Go to the `Body` tab, select `raw`, and choose `JSON` from the dropdown.
+7. Enter the following JSON:
+    ```json
+    {
+      "items": [
+        {
+          "menuId": "666dcf11f1717d230d3c8868",
+          "quantity": 2
+        },
+        {
+          "menuId": "666dcfc3f1717d230d3c886b",
+          "quantity": 1
+        },
+        {
+          "menuId": "666dd170f1717d230d3c8871",
+          "quantity": 3
+        }
+      ]
+    }
+    ```
+8. Click `Send`.
+
+## Project Structure
+
+```plaintext
+eatry-server/
+├── config/
+│   └── envConfig.js
+├── controllers/
+│   ├── authController.js
+│   ├── menuController.js
+│   └── orderController.js
+├── middleware/
+│   ├── authMiddleware.js
+│   ├── adminMiddleware.js
+│   └── handler.js
+├── models/
+│   ├── User.js
+│   ├── Menu.js
+│   └── Order.js
+├── routes/
+│   ├── authRoutes.js
+│   ├── menuRoutes.js
+│   └── orderRoutes.js
+├── operations/
+│   ├── routes.js
+│   └── db.js
+├── utils/
+│   └── email.js
+├── statusCodes.js
+├── .env.dev
+├── app.js
+└── package.json
 
 ### Running Tests
 
