@@ -2,12 +2,7 @@ const Order = require('../models/Order');
 const Menu = require('../models/Menu');
 const StatusCodes = require('../utils/statusCodes');
 
-/**
- * Creates a new order in the database.
- * @param {Object} req - Express request object
- * @param {Object} res - Express response object
- * @param {Function} next - Express next middleware function
- */
+//Creates a new order in the database.
 const createOrder = async (req, res, next) => {
     const { items } = req.body;
 
