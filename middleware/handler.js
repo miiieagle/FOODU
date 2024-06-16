@@ -1,17 +1,11 @@
-const StatusCodes = require('../utils/statusCodes');
-
-// Middleware to handle 404 errors
-
 const notFound = (req, res, next) => {
     const error = new Error(`Not Found - ${req.originalUrl}`);
-    res.status(StatusCodes.NOT_FOUND);
+    res.status(404);
     next(error);
 };
 
-//Middleware to handle all errors
- 
 const errorHandler = (err, req, res, next) => {
-    const statusCode = res.statusCode === 200 ? StatusCodes.INTERNAL_SERVER_ERROR : res.statusCode;
+    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
     res.status(statusCode);
     res.json({
         status: 'error',
@@ -21,7 +15,4 @@ const errorHandler = (err, req, res, next) => {
     });
 };
 
-module.exports = {
-    notFound,
-    errorHandler
-};
+module.exports = { notFound, errorHandler };
