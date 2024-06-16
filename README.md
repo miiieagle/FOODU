@@ -205,9 +205,9 @@ eatry-server/
 │   ├── routes.js
 │   └── db.js
 ├── utils/
-│   └── email.js
-├── statusCodes.js
-├── .env.dev
+│   ├── email.js
+│   └── statusCodes.js
+├── .env
 ├── app.js
 └── package.json
 ```
