@@ -16,7 +16,12 @@ const logger = winston.createLogger({
 mongoose.set('strictQuery', false);
 
 module.exports = function() {
-    mongoose.connect(MONGODB_URI)
-        .then(() => logger.info(`Database connected successfully...`))
-        .catch(err => logger.error(`Database connection error: ${err.message}`));
+    mongoose.connect(MONGODB_URI, {
+        serverSelectionTimeoutMS: 10000 // 10 seconds timeout
+    })
+    .then(() => logger.info(`Database connected successfully...`))
+    .catch(err => {
+        logger.error(`Database connection error: ${err.message}`);
+        process.exit(1); // Exit process with failure
+    });
 };
