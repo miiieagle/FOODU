@@ -4,8 +4,13 @@ const menuRoutes = require('../routes/menuRoutes');
 const orderRoutes = require('../routes/orderRoutes');
 const { VERSION } = require('../config/envConfig');
 
-
 const router = express.Router();
+
+// Root route handler
+router.get('/', (req, res) => {
+    res.send('Welcome to FoodU!');
+});
+
 router.get('/example', (req, res) => {
     res.json({ message: 'This is an example route' });
 });
