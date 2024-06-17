@@ -4,7 +4,11 @@ const menuRoutes = require('../routes/menuRoutes');
 const orderRoutes = require('../routes/orderRoutes');
 const { VERSION } = require('../config/envConfig');
 
+
 const router = express.Router();
+router.get('/example', (req, res) => {
+    res.json({ message: 'This is an example route' });
+});
 
 router.use(`/api/${VERSION}/auth`, authRoutes);
 router.use(`/api/${VERSION}/menu`, menuRoutes);
