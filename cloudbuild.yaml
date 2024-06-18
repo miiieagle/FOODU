@@ -1,0 +1,15 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/foodu-426811/foodu', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/foodu-426811/foodu']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [
+      'run', 'deploy', 'foodu',
+      '--image', 'gcr.io/foodu-426811/foodu',
+      '--platform', 'managed',
+      '--region', 'us-central1',
+      '--allow-unauthenticated',
+      ]
+images:
+  - 'gcr.io/foodu-426811/foodu'
