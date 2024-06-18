@@ -71,7 +71,7 @@ These instructions will help you set up and run the project on your local machin
 ### API Endpoints
 
 **Entry Point**
-    URL: `https://foodu-nysegdzfda-uc.a.run.app`
+    URL: https://foodu-nysegdzfda-uc.a.run.app
     
 #### Auth Routes
 
