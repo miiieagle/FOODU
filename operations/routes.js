@@ -11,9 +11,7 @@ router.get('/', (req, res) => {
     res.send('Welcome to FoodU!');
 });
 
-router.get('/example', (req, res) => {
-    res.json({ message: 'This is an example route' });
-});
+
 
 router.use(`/api/${VERSION}/auth`, authRoutes);
 router.use(`/api/${VERSION}/menu`, menuRoutes);
