@@ -9,7 +9,9 @@ steps:
       '--image', 'gcr.io/foodu-426811/foodu',
       '--platform', 'managed',
       '--region', 'us-central1',
-      '--allow-unauthenticated',
-      ]
+      '--allow-unauthenticated'
+    ]
 images:
   - 'gcr.io/foodu-426811/foodu'
+options:
+  logging: CLOUD_LOGGING_ONLY
