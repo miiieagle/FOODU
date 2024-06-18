@@ -15,7 +15,8 @@ router.get('/example', (req, res) => {
     res.json({ message: 'This is an example route' });
 });
 
-router.use(`/api/${VERSION}/auth`, authRoutes);
+router.use(`/auth`, authRoutes);
+//router.use(`/api/${VERSION}/auth`, authRoutes);
 router.use(`/api/${VERSION}/menu`, menuRoutes);
 router.use(`/api/${VERSION}/orders`, orderRoutes);
 
