@@ -70,10 +70,13 @@ These instructions will help you set up and run the project on your local machin
 
 ### API Endpoints
 
+**Entry Point**
+    URL: `https://foodu-nysegdzfda-uc.a.run.app`
+    
 #### Auth Routes
 
 - **Register User**
-    - URL: `/api/v1/auth/register`
+    - URL: `https://foodu-nysegdzfda-uc.a.run.app/api/v1/auth/register`
     - Method: `POST`
     - Body:
       ```json
@@ -85,7 +88,7 @@ These instructions will help you set up and run the project on your local machin
       ```
 
 - **Verify OTP**
-    - URL: `/api/v1/auth/verify-otp`
+    - URL: `https://foodu-nysegdzfda-uc.a.run.app/api/v1/auth/verify-otp`
     - Method: `POST`
     - Body:
       ```json
@@ -96,7 +99,7 @@ These instructions will help you set up and run the project on your local machin
       ```
 
 - **Login Request OTP**
-    - URL: `/api/v1/auth/login-request-otp`
+    - URL: `https://foodu-nysegdzfda-uc.a.run.app/api/v1/auth/login-request-otp`
     - Method: `POST`
     - Body:
       ```json
@@ -107,7 +110,7 @@ These instructions will help you set up and run the project on your local machin
       ```
 
 - **Verify Login OTP**
-    - URL: `/api/v1/auth/verify-login-otp`
+    - URL: `https://foodu-nysegdzfda-uc.a.run.app/api/v1/auth/verify-login-otp`
     - Method: `POST`
     - Body:
       ```json
@@ -118,7 +121,7 @@ These instructions will help you set up and run the project on your local machin
       ```
 
 - **Promote to Admin**
-    - URL: `/api/v1/auth/promote-to-admin`
+    - URL: `https://foodu-nysegdzfda-uc.a.run.app/api/v1/auth/promote-to-admin`
     - Method: `POST`
     - Body:
       ```json
@@ -130,11 +133,11 @@ These instructions will help you set up and run the project on your local machin
 #### Menu Routes
 
 - **Get Menu**
-    - URL: `/api/v1/menu`
+    - URL: `https://foodu-nysegdzfda-uc.a.run.app/api/v1/menu`
     - Method: `GET`
 
 - **Add Menu Item (Admin only)**
-    - URL: `/api/v1/menu`
+    - URL: `https://foodu-nysegdzfda-uc.a.run.app/api/v1/menu`
     - Method: `POST`
     - Headers:
       - `Authorization: Bearer <admin_jwt_token>`
@@ -150,7 +153,7 @@ These instructions will help you set up and run the project on your local machin
 #### Order Routes
 
 - **Place Order**
-    - URL: `/api/v1/orders`
+    - URL: `https://foodu-nysegdzfda-uc.a.run.app/api/v1/orders`
     - Method: `POST`
     - Headers:
       - `Authorization: Bearer <user_jwt_token>`
