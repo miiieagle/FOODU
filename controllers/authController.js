@@ -6,8 +6,7 @@ const otpGenerator = require('otp-generator');
 const sendEmail = require('../utils/email');
 const StatusCodes = require('../utils/statusCodes');
 
-//Registers a new user and sends an OTP to their email.
-
+// Registers a new user and sends an OTP to their email.
 const register = async (req, res, next) => {
     const schema = Joi.object({
         name: Joi.string().required(),
@@ -31,10 +30,11 @@ const register = async (req, res, next) => {
             return next(error);
         }
 
+        const hashedPassword = await bcrypt.hash(password, 10);
         const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
         const hashedOtp = await bcrypt.hash(otp, 10);
 
-        user = new User({ name, email, password, otp: hashedOtp });
+        user = new User({ name, email, password: hashedPassword, otp: hashedOtp });
         await user.save();
 
         await sendEmail(email, 'OTP Verification', `Your OTP is ${otp}`);
@@ -45,8 +45,7 @@ const register = async (req, res, next) => {
     }
 };
 
-//Verifies the OTP sent to the user's email.
- 
+// Verifies the OTP sent to the user's email.
 const verifyOtp = async (req, res, next) => {
     const schema = Joi.object({
         email: Joi.string().email().required(),
@@ -92,8 +91,7 @@ const verifyOtp = async (req, res, next) => {
     }
 };
 
-//Initiates the login process by sending an OTP to the user's email.
-
+// Initiates the login process by sending an OTP to the user's email.
 const loginRequestOtp = async (req, res, next) => {
     const schema = Joi.object({
         email: Joi.string().email().required(),
@@ -137,7 +135,7 @@ const loginRequestOtp = async (req, res, next) => {
     }
 };
 
-//Verifies the OTP sent during the login process and issues a JWT token.
+// Verifies the OTP sent during the login process and issues a JWT token.
 const verifyLoginOtp = async (req, res, next) => {
     const schema = Joi.object({
         email: Joi.string().email().required(),
@@ -183,8 +181,7 @@ const verifyLoginOtp = async (req, res, next) => {
     }
 };
 
-//Promotes a user to admin.
- 
+// Promotes a user to admin.
 const promoteToAdmin = async (req, res, next) => {
     const { email } = req.body;
 
