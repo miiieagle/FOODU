@@ -37,10 +37,13 @@ const register = async (req, res, next) => {
         user = new User({ name, email, password: hashedPassword, otp: hashedOtp });
         await user.save();
 
+        console.log('User registered:', user);
+
         await sendEmail(email, 'OTP Verification', `Your OTP is ${otp}`);
 
         res.status(StatusCodes.CREATED).json({ message: 'User registered, OTP sent to email' });
     } catch (err) {
+        console.error('Error during registration:', err);
         next(err);
     }
 };
@@ -81,12 +84,15 @@ const verifyOtp = async (req, res, next) => {
         const payload = { userId: user.id, role: user.role };
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
+        console.log('OTP verified, token issued:', token);
+
         res.status(StatusCodes.OK).json({
-            message: 'Welcome to FOODU! Enjoy our delicious offerings.',
+            message: 'Welcome to FOODU! Enjoy our delicious food.',
             slogan: 'Savor the Flavor!',
             token
         });
     } catch (err) {
+        console.error('Error during OTP verification:', err);
         next(err);
     }
 };
@@ -127,10 +133,13 @@ const loginRequestOtp = async (req, res, next) => {
         user.otp = hashedOtp;
         await user.save();
 
+        console.log('OTP generated for login:', otp);
+
         await sendEmail(email, 'OTP Verification', `Your OTP is ${otp}`);
 
         res.status(StatusCodes.OK).json({ message: 'OTP sent to your email' });
     } catch (err) {
+        console.error('Error during login OTP request:', err);
         next(err);
     }
 };
@@ -171,12 +180,15 @@ const verifyLoginOtp = async (req, res, next) => {
         const payload = { userId: user.id, role: user.role };
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
+        console.log('Login OTP verified, token issued:', token);
+
         res.status(StatusCodes.OK).json({
             message: 'Welcome back to FOODU!',
             slogan: 'Savor the Flavor!',
             token
         });
     } catch (err) {
+        console.error('Error during login OTP verification:', err);
         next(err);
     }
 };
@@ -198,6 +210,7 @@ const promoteToAdmin = async (req, res, next) => {
 
         res.status(StatusCodes.OK).json({ message: `${email} is now an admin` });
     } catch (err) {
+        console.error('Error during admin promotion:', err);
         next(err);
     }
 };
